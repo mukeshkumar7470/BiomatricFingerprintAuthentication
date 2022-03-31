@@ -32,13 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         initlizeBiometric();
 
-        binding.login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                biometricDialog();
-            }
-        });
-
+        binding.login.setOnClickListener(v -> biometricDialog());
 
     }
 
@@ -64,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 super.onAuthenticationFailed();
             }
         });
-        final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Test")
-                .setDescription("Use your fingerprint to login ").setNegativeButtonText("Cancel").build();
+        final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Test")
+                .setDescription("Use your fingerprint to login ")
+                .setNegativeButtonText("Cancel")
+                .build();
 
         biometricPrompt.authenticate(promptInfo);
 
@@ -94,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 binding.msgtext.setText("Your device doesn't have fingerprint saved,please check your security settings");
                 binding.login.setVisibility(View.GONE);
                 break;
+
+            default:
+                binding.msgtext.setText("Something went wrong....");
+                break;
+
         }
     }
 }
